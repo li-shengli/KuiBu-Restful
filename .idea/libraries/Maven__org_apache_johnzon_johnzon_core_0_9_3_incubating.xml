@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.apache.johnzon:johnzon-core:0.9.3-incubating">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Tool/apache-maven-3.5.2/repo/org/apache/johnzon/johnzon-core/0.9.3-incubating/johnzon-core-0.9.3-incubating.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/Tool/apache-maven-3.5.2/repo/org/apache/johnzon/johnzon-core/0.9.3-incubating/johnzon-core-0.9.3-incubating-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/Tool/apache-maven-3.5.2/repo/org/apache/johnzon/johnzon-core/0.9.3-incubating/johnzon-core-0.9.3-incubating-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
