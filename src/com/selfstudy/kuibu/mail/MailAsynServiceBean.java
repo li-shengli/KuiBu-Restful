@@ -14,7 +14,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import com.selfstudy.kuibu.util.XplanConfiguration;
+import com.selfstudy.kuibu.util.KuiBuConfiguration;
 import org.apache.log4j.Logger;
 
 import com.selfstudy.kuibu.vo.Activity;
@@ -37,17 +37,17 @@ public class MailAsynServiceBean implements IMailAsynServiceLocal {
 	      String to = mailAddress;
 
 	      // Sender's email ID needs to be mentioned
-	      String from = XplanConfiguration.getInstance().get("mail.from");
+	      String from = KuiBuConfiguration.getInstance().get("mail.from");
 
 	      // Assuming you are sending email from localhost
-	      String host = XplanConfiguration.getInstance().get("mail.host");
-	      String port = XplanConfiguration.getInstance().get("mail.port");
-	      String auth = XplanConfiguration.getInstance().get("mail.auth");
-	      String debug = XplanConfiguration.getInstance().get("mail.debug");
-	      String sslEnable = XplanConfiguration.getInstance().get("mail.ssl.enable");
-	      String login = XplanConfiguration.getInstance().get("mail.user.login");
-	      String password = XplanConfiguration.getInstance().get("mail.user.password");
-	      String starttls = XplanConfiguration.getInstance().get("mail.starttls.enable");
+	      String host = KuiBuConfiguration.getInstance().get("mail.host");
+	      String port = KuiBuConfiguration.getInstance().get("mail.port");
+	      String auth = KuiBuConfiguration.getInstance().get("mail.auth");
+	      String debug = KuiBuConfiguration.getInstance().get("mail.debug");
+	      String sslEnable = KuiBuConfiguration.getInstance().get("mail.ssl.enable");
+	      String login = KuiBuConfiguration.getInstance().get("mail.user.login");
+	      String password = KuiBuConfiguration.getInstance().get("mail.user.password");
+	      String starttls = KuiBuConfiguration.getInstance().get("mail.starttls.enable");
 
 	      // Get system properties
 	      Properties properties = new Properties();

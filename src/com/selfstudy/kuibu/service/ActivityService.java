@@ -9,7 +9,7 @@ import javax.inject.Inject;
 import com.selfstudy.kuibu.mail.IMailAsynServiceLocal;
 import com.selfstudy.kuibu.service.api.IActivityService;
 import com.selfstudy.kuibu.service.api.IRegisterService;
-import com.selfstudy.kuibu.util.XplanConfiguration;
+import com.selfstudy.kuibu.util.KuiBuConfiguration;
 import com.selfstudy.kuibu.vo.*;
 import org.apache.log4j.Logger;
 
@@ -74,9 +74,9 @@ public class ActivityService extends AbstractService implements IActivityService
 	}
 
 	private String getReisterURL(String colleageId, String activityId) {
-		String host = XplanConfiguration.getInstance().get("server.public.host");
-		String port = XplanConfiguration.getInstance().get("server.public.port");
-		String root = XplanConfiguration.getInstance().get("server.public.root");
+		String host = KuiBuConfiguration.getInstance().get("server.public.host");
+		String port = KuiBuConfiguration.getInstance().get("server.public.port");
+		String root = KuiBuConfiguration.getInstance().get("server.public.root");
 		StringBuilder url = new StringBuilder("http://");
 		url.append(host);
 		url.append(":");

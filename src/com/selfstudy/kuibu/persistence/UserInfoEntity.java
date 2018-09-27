@@ -15,14 +15,14 @@ import com.selfstudy.kuibu.constants.Gender;
 @Table(keyspace = "KuiBu", name = "userInformation", caseSensitiveKeyspace = false, caseSensitiveTable = false)
 public class UserInfoEntity {
     @PartitionKey
-    @Column(name = "userId")
-    private UUID id;
-
     @Column(name = "longinName")
     private String username;
 
     @Column(name = "password")
     private String password;
+
+    @Column(name = "userId")
+    private UUID id;
 
     @Column(name = "nickname")
     private String nickName;

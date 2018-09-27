@@ -1,0 +1,43 @@
+--Add column on base table 
+alter table personinformation add act1 int;
+alter table personinformation add act2 int;
+ 
+--MVs definition
+CREATE MATERIALIZED VIEW act1
+AS SELECT personid, name, act2
+FROM personinformation 
+WHERE personid IS NOT NULL AND act2 IS NOT NULL 
+PRIMARY KEY (act1, personid);
+
+
+CREATE MATERIALIZED VIEW act2
+AS SELECT personid, name, act2
+FROM personinformation 
+WHERE personid IS NOT NULL AND act2 IS NOT NULL 
+PRIMARY KEY (act2, personid);
+
+
+
+--Test data 
+insert into personinformation(personid,createtime,gender,name,namefirstletter,team,updatetime,act1) values(8d72542c-629a-42c7-b5a8-1bb1eea8d23f,totimestamp(now()),1,'Yang Bin','YB','DBA',totimestamp(now()),1);
+insert into personinformation(personid,createtime,gender,name,namefirstletter,team,updatetime,act1) values(8d72543c-629a-42c7-b5a8-1bb1eea8d23f,totimestamp(now()),1,'Zhai Guanglong','ZGL','ODC',totimestamp(now()),1);
+insert into personinformation(personid,createtime,gender,name,namefirstletter,team,updatetime,act1) values(8d72544c-629a-42c7-b5a8-1bb1eea8d23f,totimestamp(now()),1,'Li Run','YB','OSL',totimestamp(now()),1);
+insert into personinformation(personid,createtime,gender,name,namefirstletter,team,updatetime,act1) values(8d72545c-629a-42c7-b5a8-1bb1eea8d23f,totimestamp(now()),1,'Li Shengli','LSL','ODC',totimestamp(now()),1);
+
+
+insert into personinformation(personid,createtime,gender,name,namefirstletter,team,updatetime,act2) values(8d72546c-629a-42c7-b5a8-1bb1eea8d23f,totimestamp(now()),1,'Tao Shaona','TSN','ODC',totimestamp(now()),1);
+insert into personinformation(personid,createtime,gender,name,namefirstletter,team,updatetime,act2) values(8d72547c-629a-42c7-b5a8-1bb1eea8d23f,totimestamp(now()),1,'Wang Yanjing','WYJ','ODC',totimestamp(now()),1);
+insert into personinformation(personid,createtime,gender,name,namefirstletter,team,updatetime,act2) values(8d72548c-629a-42c7-b5a8-1bb1eea8d23f,totimestamp(now()),1,'Song Xiaoqing','SXQ','ODC',totimestamp(now()),1);
+insert into personinformation(personid,createtime,gender,name,namefirstletter,team,updatetime,act2) values(8d72549c-629a-42c7-b5a8-1bb1eea8d23f,totimestamp(now()),1,'Cui Yanlin','CYL','ODC',totimestamp(now()),1);
+
+/*data in MV
+cqlsh:xplan> select * from act1;
+
+ act1 | personid                             | name
+------+--------------------------------------+----------------
+    1 | 8d72542c-629a-42c7-b5a8-1bb1eea8d23f |       Yang Bin
+    1 | 8d72543c-629a-42c7-b5a8-1bb1eea8d23f | Zhai Guanglong
+    1 | 8d72544c-629a-42c7-b5a8-1bb1eea8d23f |         Li Run
+1 | 8d72545c-629a-42c7-b5a8-1bb1eea8d23f |     Li Shengli
+
+*/

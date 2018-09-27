@@ -1,5 +1,7 @@
 package com.selfstudy.kuibu.persistence;
 
+import com.datastax.driver.mapping.annotations.Column;
+import com.datastax.driver.mapping.annotations.PartitionKey;
 import com.datastax.driver.mapping.annotations.Table;
 
 import java.util.Map;
@@ -7,10 +9,20 @@ import java.util.UUID;
 
 @Table(keyspace = "KuiBu", name = "taskReadingInfo", caseSensitiveKeyspace = false, caseSensitiveTable = false)
 public class TaskReadingInfo {
+    @PartitionKey
+    @Column(name = "taskId")
     private UUID taskId;
+
+    @Column(name = "pagesIntotal")
     private int pagesIntotal;
+
+    @Column(name = "pagesCurrent")
     private int pagesCurrent;
+
+    @Column(name = "expectedDays")
     private int expectedDays;
+
+    @Column(name = "history")
     private Map<Integer, Integer> history;
 
     public UUID getTaskId() {

@@ -6,23 +6,23 @@ import java.util.Properties;
 
 import org.apache.log4j.Logger;
 
-public class XplanConfiguration {
-	private static Logger logger = Logger.getLogger(XplanConfiguration.class);
+public class KuiBuConfiguration {
+	private static Logger logger = Logger.getLogger(KuiBuConfiguration.class);
 
-	private static XplanConfiguration instance = new XplanConfiguration();
+	private static KuiBuConfiguration instance = new KuiBuConfiguration();
 
 	private Properties properties = new Properties();
 
-	private XplanConfiguration() {
+	private KuiBuConfiguration() {
 		try {
-			InputStream stream = XplanConfiguration.class.getResourceAsStream("/xplan.properties");
+			InputStream stream = KuiBuConfiguration.class.getResourceAsStream("/kuibu.properties");
 			this.properties.load(stream);
 		} catch (IOException e) {
 			logger.error("Cannot Init Cofigurtion", e);
 		}
 	}
 
-	public static XplanConfiguration getInstance() {
+	public static KuiBuConfiguration getInstance() {
 		return instance;
 	}
 
