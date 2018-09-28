@@ -29,6 +29,8 @@ public class UserInfo {
 
     private Date lastUpdateTime;
 
+    private UserInfo() {}
+
     public UserInfo (UserInfoEntity entity) {
         this.id = entity.getId();
         this.username = entity.getUsername();

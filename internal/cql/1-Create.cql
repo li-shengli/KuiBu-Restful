@@ -4,13 +4,13 @@ CREATE KEYSPACE KuiBu
 
 /*create key family*/	   
 CREATE TABLE userInformation (
-    userId uuid PRIMARY KEY,
-	longinName text,
+	longinName text PRIMARY KEY,
 	password text,
+	userId uuid,
     nickname text,
     gender int,     --0 means male, 1 means female
     mail text,
-	profileUrl tetx,
+	profileUrl text,
 	tasklist list<uuid>, -- list of taskId
     createTime timestamp,
     lastUpdateTime timestamp

@@ -11,7 +11,7 @@ import com.selfstudy.kuibu.persistence.*;
 @Accessor
 public interface DAOAccessor {
 
-	@Query("SELECT * FROM kuibu.userInformation where longinName=?")
+	@Query("SELECT * FROM kuibu.userInformation where longinname = ?")
 	Result<UserInfoEntity> getUserInfo(String loginName);
 
 	@Query("SELECT * FROM kuibu.taskCommonInfo where taskId in ?")
