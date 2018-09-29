@@ -22,19 +22,19 @@ public class UserRestService {
     @Path("/user/login")
     @POST
     @Produces("application/json")
-    public UserInfo login(String username, String password) throws IllegalStateException{
+    public UserInfo login(UserInfo user) throws IllegalStateException{
         if (logger.isDebugEnabled()) {
-            logger.debug("User ["+username+"] login in.");
+            logger.debug("User ["+user.getUsername()+"] login in.");
         }
-        UserInfoEntity entity = authService.login(username,password);
+        UserInfoEntity entity = authService.login(user.getUsername(),user.getPassword());
 
         if(entity != null) {
             if (logger.isDebugEnabled()) {
-                logger.debug("User ["+username+"] exist.");
+                logger.debug("User ["+user.getUsername()+"] exist.");
             }
             return new UserInfo(entity);
         }
-        throw new IllegalStateException("Cannot find the User with username = " + username);
+        throw new IllegalStateException("Cannot find the User with username = " + user.getUsername());
     }
 
     @Path("/user/register")

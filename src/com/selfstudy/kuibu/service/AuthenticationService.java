@@ -6,6 +6,8 @@ import com.selfstudy.kuibu.service.api.IAuthenticationService;
 import com.selfstudy.kuibu.util.MD5Util;
 import com.selfstudy.kuibu.vo.UserInfo;
 
+import java.util.UUID;
+
 public class AuthenticationService extends AbstractService implements IAuthenticationService {
 
     @Override
@@ -29,6 +31,7 @@ public class AuthenticationService extends AbstractService implements IAuthentic
 
         UserInfoEntity userEntity = user.toEntity();
         userEntity.setPassword(MD5Util.md5Encode(user.getPassword()));
+        userEntity.setId(UUID.randomUUID());
         Mapper<UserInfoEntity> activityMapper = manager.mapper(UserInfoEntity.class);
         activityMapper.save(userEntity);
 

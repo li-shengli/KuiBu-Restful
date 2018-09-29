@@ -29,7 +29,7 @@ public class UserInfoEntity {
 
     @Enumerated (value = EnumType.ORDINAL)
     @Column(name = "gender")
-    private Gender gender;
+    private Gender gender = Gender.MAIL;
 
     @Column(name = "mail")
     private String mail;
