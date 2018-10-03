@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @Table(keyspace = "KuiBu", name = "taskReadingInfo", caseSensitiveKeyspace = false, caseSensitiveTable = false)
-public class TaskReadingInfo {
+public class TaskReadingInfoEntity {
     @PartitionKey
     @Column(name = "taskId")
     private UUID taskId;

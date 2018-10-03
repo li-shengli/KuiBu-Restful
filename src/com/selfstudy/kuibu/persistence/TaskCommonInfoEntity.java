@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.UUID;
 
 @Table(keyspace = "KuiBu", name = "taskCommonInfo", caseSensitiveKeyspace = false, caseSensitiveTable = false)
-public class TaskCommonInfo {
+public class TaskCommonInfoEntity {
     @PartitionKey
     @Column(name = "taskId")
     private UUID taskId;

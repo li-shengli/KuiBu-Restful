@@ -3,7 +3,7 @@ package com.selfstudy.kuibu.persistence.factory;
 import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.Session;
 import com.datastax.driver.extras.codecs.enums.EnumOrdinalCodec;
-import com.selfstudy.kuibu.constants.Gender;
+import com.selfstudy.kuibu.constants.*;
 import com.selfstudy.kuibu.util.KuiBuConfiguration;
 import org.apache.log4j.Logger;
 
@@ -28,6 +28,10 @@ public class DAOFactory {
 		cluster = Cluster.builder().addContactPoints(CONTACT_POINTS).withPort(PORT).build();
 
 		cluster.getConfiguration().getCodecRegistry().register(new EnumOrdinalCodec<Gender>(Gender.class));
+		cluster.getConfiguration().getCodecRegistry().register(new EnumOrdinalCodec<TaskType>(TaskType.class));
+		cluster.getConfiguration().getCodecRegistry().register(new EnumOrdinalCodec<TaskFrom>(TaskFrom.class));
+		cluster.getConfiguration().getCodecRegistry().register(new EnumOrdinalCodec<TaskPriority>(TaskPriority.class));
+		cluster.getConfiguration().getCodecRegistry().register(new EnumOrdinalCodec<TaskStatus>(TaskStatus.class));
 
 		logger.info("Connected to cluster: " + cluster.getMetadata().getClusterName());
 

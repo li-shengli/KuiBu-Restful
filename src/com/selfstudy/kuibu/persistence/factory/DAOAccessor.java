@@ -15,5 +15,5 @@ public interface DAOAccessor {
 	Result<UserInfoEntity> getUserInfo(String loginName);
 
 	@Query("SELECT * FROM kuibu.taskCommonInfo where taskId in ?")
-	Result<TaskCommonInfo> getTaskList(List<UUID> taskIds);
+	Result<TaskCommonInfoEntity> getTaskList(List<UUID> taskIds);
 }
