@@ -19,7 +19,7 @@ public class TaskReadingInfoEntity {
     @Column(name = "pagesCurrent")
     private int pagesCurrent;
 
-    @Column(name = "expectedDays")
+    @Column(name = "daystofinish")
     private int expectedDays;
 
     @Column(name = "history")

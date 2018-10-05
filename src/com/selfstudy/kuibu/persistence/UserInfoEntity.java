@@ -6,6 +6,7 @@ import com.datastax.driver.mapping.annotations.Table;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -103,6 +104,9 @@ public class UserInfoEntity {
     }
 
     public List<UUID> getTasklist() {
+        if(tasklist == null) {
+            tasklist = new ArrayList<UUID>();
+        }
         return tasklist;
     }
 

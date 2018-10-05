@@ -7,6 +7,7 @@ import com.selfstudy.kuibu.constants.TaskFrom;
 import com.selfstudy.kuibu.constants.TaskPriority;
 import com.selfstudy.kuibu.constants.TaskStatus;
 import com.selfstudy.kuibu.constants.TaskType;
+import com.selfstudy.kuibu.vo.TaskInfo;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -128,5 +129,13 @@ public class TaskCommonInfoEntity {
 
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
+    }
+
+    public TaskInfo toTaskInfo() {
+        TaskInfo taskInfo = new TaskInfo();
+        taskInfo.setTaskId(this.taskId);
+        taskInfo.setTaskName(this.taskName);
+        taskInfo.setTaskType(this.taskStatus.ordinal());
+        return taskInfo;
     }
 }

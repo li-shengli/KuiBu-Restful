@@ -16,9 +16,11 @@ public class TaskInfo {
 
     private UUID taskId;
 
+    private String username;
+
     private String taskName;
 
-    private TaskType taskType;
+    private int taskType;
 
     private TaskStatus taskStatus;
 
@@ -46,7 +48,7 @@ public class TaskInfo {
         TaskCommonInfoEntity commonInfoEntity = new TaskCommonInfoEntity();
         commonInfoEntity.setTaskId(this.taskId);
         commonInfoEntity.setTaskName(this.taskName);
-        commonInfoEntity.setTaskType(this.taskType);
+        commonInfoEntity.setTaskType(TaskType.values()[taskType]);
         commonInfoEntity.setCreateTime(this.createTime);
         return commonInfoEntity;
     }
@@ -81,11 +83,43 @@ public class TaskInfo {
         this.taskName = taskName;
     }
 
-    public TaskType getTaskType() {
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
+    }
+
+    public Date getLastUpdateTime() {
+        return lastUpdateTime;
+    }
+
+    public void setLastUpdateTime(Date lastUpdateTime) {
+        this.lastUpdateTime = lastUpdateTime;
+    }
+
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
+    }
+
+    public int getPagesIntotal() {
+        return pagesIntotal;
+    }
+
+    public int getTaskType() {
         return taskType;
     }
 
-    public void setTaskType(TaskType taskType) {
+    public void setTaskType(int taskType) {
         this.taskType = taskType;
     }
 
@@ -125,30 +159,6 @@ public class TaskInfo {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
-        this.startTime = startTime;
-    }
-
-    public Date getLastUpdateTime() {
-        return lastUpdateTime;
-    }
-
-    public void setLastUpdateTime(Date lastUpdateTime) {
-        this.lastUpdateTime = lastUpdateTime;
-    }
-
-    public Date getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
-    }
-
-    public int getPagesIntotal() {
-        return pagesIntotal;
-    }
-
     public void setPagesIntotal(int pagesIntotal) {
         this.pagesIntotal = pagesIntotal;
     }
@@ -175,5 +185,25 @@ public class TaskInfo {
 
     public void setHistory(Map<Integer, Integer> history) {
         this.history = history;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("USER:[");
+        sb.append("taskId=").append(this.taskId).append(",");
+        sb.append("loginName=").append(this.username).append(",");
+        sb.append("TaskName=").append(this.taskName).append(",");
+        sb.append("taskType=").append(this.taskType).append(",");
+        sb.append("taskStatus=").append(this.taskStatus).append(",");
+        sb.append("taskFrom=").append(this.taskFrom).append(",");
+        sb.append("taskPriority=").append(this.taskPriority).append(",");
+        sb.append("expectedDays=").append(this.expectedDays).append(",");
+        sb.append("pagesCurrent=").append(this.pagesCurrent).append(",");
+        sb.append("pagesIntotal=").append(this.pagesIntotal).append(",");
+        sb.append("createTime=").append(this.createTime).append(",");
+        sb.append("endTime=").append(this.endTime).append(",");
+        sb.append("history=").append(this.history).append(",");
+
+        return sb.toString();
     }
 }
