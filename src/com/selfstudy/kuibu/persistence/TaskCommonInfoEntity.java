@@ -131,11 +131,4 @@ public class TaskCommonInfoEntity {
         this.endTime = endTime;
     }
 
-    public TaskInfo toTaskInfo() {
-        TaskInfo taskInfo = new TaskInfo();
-        taskInfo.setTaskId(this.taskId);
-        taskInfo.setTaskName(this.taskName);
-        taskInfo.setTaskType(this.taskStatus.ordinal());
-        return taskInfo;
-    }
 }

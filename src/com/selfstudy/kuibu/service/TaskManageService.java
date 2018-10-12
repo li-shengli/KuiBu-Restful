@@ -43,5 +43,14 @@ public class TaskManageService extends AbstractService implements ITaskManageSer
         return commonInfoEntityResult.all();
     }
 
+    @Override
+    public TaskReadingInfoEntity getReadingTaskDetails(UUID taskId) {
+        if(logger.isDebugEnabled()) {
+            logger.debug("Retrieve task details with taskId: " + taskId);
+        }
+        TaskReadingInfoEntity readingInfoEntity = accessor.getReadingTaskDetail(taskId).one();
+        return readingInfoEntity;
+    }
+
 
 }

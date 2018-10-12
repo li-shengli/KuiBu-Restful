@@ -22,11 +22,11 @@ public class TaskInfo {
 
     private int taskType;
 
-    private TaskStatus taskStatus;
+    private int taskStatus;
 
-    private TaskFrom taskFrom;
+    private int taskFrom;
 
-    private TaskPriority taskPriority;
+    private int taskPriority;
 
     private Date createTime;
 
@@ -43,6 +43,26 @@ public class TaskInfo {
     private int expectedDays;
 
     private Map<Integer, Integer> history;
+
+    public TaskInfo() {
+
+    }
+
+    public TaskInfo(TaskCommonInfoEntity commonInfoEntity, TaskReadingInfoEntity readingInfoEntity) {
+        if(commonInfoEntity != null) {
+            this.setTaskId(commonInfoEntity.getTaskId());
+            this.setTaskName(commonInfoEntity.getTaskName());
+            this.setTaskType(commonInfoEntity.getTaskStatus().ordinal());
+            this.setTaskStatus(commonInfoEntity.getTaskStatus().ordinal());
+        }
+        if (readingInfoEntity != null) {
+            this.setTaskId(readingInfoEntity.getTaskId());
+            this.setPagesIntotal(readingInfoEntity.getPagesIntotal());
+            this.setPagesCurrent(readingInfoEntity.getPagesCurrent());
+            this.setExpectedDays(readingInfoEntity.getExpectedDays());
+            this.setHistory(readingInfoEntity.getHistory());
+        }
+    }
 
     public TaskCommonInfoEntity toTaskCommonInfoEntity () {
         TaskCommonInfoEntity commonInfoEntity = new TaskCommonInfoEntity();
@@ -123,27 +143,27 @@ public class TaskInfo {
         this.taskType = taskType;
     }
 
-    public TaskStatus getTaskStatus() {
+    public int getTaskStatus() {
         return taskStatus;
     }
 
-    public void setTaskStatus(TaskStatus taskStatus) {
+    public void setTaskStatus(int taskStatus) {
         this.taskStatus = taskStatus;
     }
 
-    public TaskFrom getTaskFrom() {
+    public int getTaskFrom() {
         return taskFrom;
     }
 
-    public void setTaskFrom(TaskFrom taskFrom) {
+    public void setTaskFrom(int taskFrom) {
         this.taskFrom = taskFrom;
     }
 
-    public TaskPriority getTaskPriority() {
+    public int getTaskPriority() {
         return taskPriority;
     }
 
-    public void setTaskPriority(TaskPriority taskPriority) {
+    public void setTaskPriority(int taskPriority) {
         this.taskPriority = taskPriority;
     }
 

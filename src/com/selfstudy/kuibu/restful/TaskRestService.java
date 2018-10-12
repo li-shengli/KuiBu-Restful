@@ -58,17 +58,28 @@ public class TaskRestService {
         tasks.put(TaskStatus.Finished.ordinal(), doneTasks);
 
         for (TaskCommonInfoEntity commonInfoEntity : commonInfoEntities) {
+            TaskReadingInfoEntity readingInfoEntity = taskService.getReadingTaskDetails(commonInfoEntity.getTaskId());
+            TaskInfo taskInfo = new TaskInfo(commonInfoEntity, readingInfoEntity);
             if(TaskStatus.Submitted.equals(commonInfoEntity.getTaskStatus())) {
-                submittedTasks.add(commonInfoEntity.toTaskInfo());
+                submittedTasks.add(taskInfo);
             } else if (TaskStatus.Executing.equals(commonInfoEntity.getTaskStatus())) {
-                ongoingTasks.add(commonInfoEntity.toTaskInfo());
+                ongoingTasks.add(taskInfo);
             } else if (TaskStatus.Finished.equals(commonInfoEntity.getTaskStatus())) {
-                doneTasks.add(commonInfoEntity.toTaskInfo());
+                doneTasks.add(taskInfo);
             } else {
                 // todo
             }
         }
 
         return tasks;
+    }
+
+    @Path("/task/update")
+    @POST
+    @Produces("application/json")
+    public void updateTask(TaskInfo taskInfo) {
+        if (logger.isDebugEnabled()) {
+            logger.debug("Update a task, taskId = "+ taskInfo.getTaskId());
+        }
     }
 }
