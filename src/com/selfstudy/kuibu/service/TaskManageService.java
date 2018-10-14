@@ -2,6 +2,7 @@ package com.selfstudy.kuibu.service;
 
 import com.datastax.driver.mapping.Mapper;
 import com.datastax.driver.mapping.Result;
+import com.selfstudy.kuibu.constants.TaskType;
 import com.selfstudy.kuibu.persistence.TaskCommonInfoEntity;
 import com.selfstudy.kuibu.persistence.TaskReadingInfoEntity;
 import com.selfstudy.kuibu.persistence.UserInfoEntity;
@@ -44,12 +45,45 @@ public class TaskManageService extends AbstractService implements ITaskManageSer
     }
 
     @Override
+    public TaskCommonInfoEntity getTaskCommonInfo(UUID taskId) {
+        if(logger.isDebugEnabled()) {
+            logger.debug("Retrieve task common info with taskId: " + taskId);
+        }
+        return accessor.getTaskCommonInfo(taskId).one();
+    }
+
+    @Override
     public TaskReadingInfoEntity getReadingTaskDetails(UUID taskId) {
         if(logger.isDebugEnabled()) {
             logger.debug("Retrieve task details with taskId: " + taskId);
         }
         TaskReadingInfoEntity readingInfoEntity = accessor.getReadingTaskDetail(taskId).one();
         return readingInfoEntity;
+    }
+
+    @Override
+    public void updateTask(TaskCommonInfoEntity commonInfoEntity, TaskReadingInfoEntity readingInfoEntity) {
+        if(logger.isDebugEnabled()) {
+            logger.debug("Update a existing reading task, taskId = " + commonInfoEntity.getTaskId());
+        }
+        Mapper<TaskCommonInfoEntity> commonInfoEntityMapper = manager.mapper(TaskCommonInfoEntity.class);
+        commonInfoEntityMapper.save(commonInfoEntity);
+
+        Mapper<TaskReadingInfoEntity> readingInfoEntityMapper = manager.mapper(TaskReadingInfoEntity.class);
+        readingInfoEntityMapper.save(readingInfoEntity);
+    }
+
+    @Override
+    public void deleteTask(UUID taskId, TaskType taskType) {
+        if(logger.isDebugEnabled()) {
+            logger.debug("Delete a existing reading task, taskId = " + taskId);
+        }
+        if (TaskType.Reading.equals(taskType)) {
+            Mapper<TaskReadingInfoEntity> readingInfoEntityMapper = manager.mapper(TaskReadingInfoEntity.class);
+            readingInfoEntityMapper.delete(taskId);
+        }
+        Mapper<TaskCommonInfoEntity> commonInfoEntityMapper = manager.mapper(TaskCommonInfoEntity.class);
+        commonInfoEntityMapper.delete(taskId);
     }
 
 

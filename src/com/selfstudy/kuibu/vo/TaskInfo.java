@@ -1,9 +1,6 @@
 package com.selfstudy.kuibu.vo;
 
-import com.selfstudy.kuibu.constants.TaskFrom;
-import com.selfstudy.kuibu.constants.TaskPriority;
-import com.selfstudy.kuibu.constants.TaskStatus;
-import com.selfstudy.kuibu.constants.TaskType;
+import com.selfstudy.kuibu.constants.*;
 import com.selfstudy.kuibu.persistence.TaskCommonInfoEntity;
 import com.selfstudy.kuibu.persistence.TaskReadingInfoEntity;
 
@@ -14,7 +11,7 @@ import java.util.UUID;
 
 public class TaskInfo {
 
-    private UUID taskId;
+    private String taskId;
 
     private String username;
 
@@ -50,13 +47,13 @@ public class TaskInfo {
 
     public TaskInfo(TaskCommonInfoEntity commonInfoEntity, TaskReadingInfoEntity readingInfoEntity) {
         if(commonInfoEntity != null) {
-            this.setTaskId(commonInfoEntity.getTaskId());
+            this.setTaskId(commonInfoEntity.getTaskId().toString());
             this.setTaskName(commonInfoEntity.getTaskName());
             this.setTaskType(commonInfoEntity.getTaskStatus().ordinal());
             this.setTaskStatus(commonInfoEntity.getTaskStatus().ordinal());
         }
         if (readingInfoEntity != null) {
-            this.setTaskId(readingInfoEntity.getTaskId());
+            this.setTaskId(readingInfoEntity.getTaskId().toString());
             this.setPagesIntotal(readingInfoEntity.getPagesIntotal());
             this.setPagesCurrent(readingInfoEntity.getPagesCurrent());
             this.setExpectedDays(readingInfoEntity.getExpectedDays());
@@ -66,16 +63,20 @@ public class TaskInfo {
 
     public TaskCommonInfoEntity toTaskCommonInfoEntity () {
         TaskCommonInfoEntity commonInfoEntity = new TaskCommonInfoEntity();
-        commonInfoEntity.setTaskId(this.taskId);
+        commonInfoEntity.setTaskId(UUID.fromString(this.taskId));
         commonInfoEntity.setTaskName(this.taskName);
         commonInfoEntity.setTaskType(TaskType.values()[taskType]);
         commonInfoEntity.setCreateTime(this.createTime);
         return commonInfoEntity;
     }
 
+    public void updateTaskCommonInfoEntity (TaskCommonInfoEntity commonInfoEntity) {
+        commonInfoEntity.setTaskName(this.taskName);
+    }
+
     public TaskReadingInfoEntity toTaskReadingInfoEntity () {
         TaskReadingInfoEntity readingInfoEntity = new TaskReadingInfoEntity();
-        readingInfoEntity.setTaskId(this.taskId);
+        readingInfoEntity.setTaskId(UUID.fromString(this.taskId));
         readingInfoEntity.setPagesIntotal(this.pagesIntotal);
         readingInfoEntity.setPagesCurrent(this.pagesCurrent);
         readingInfoEntity.setExpectedDays(this.expectedDays);
@@ -87,11 +88,20 @@ public class TaskInfo {
         return readingInfoEntity;
     }
 
-    public UUID getTaskId() {
+    public void updateTaskReadingInfoEntity(TaskCommonInfoEntity commonInfoEntity, TaskReadingInfoEntity readingInfoEntity) {
+        readingInfoEntity.setPagesCurrent(this.pagesCurrent);
+        readingInfoEntity.setPagesIntotal(this.pagesIntotal);
+        readingInfoEntity.setExpectedDays(this.expectedDays);
+
+        Long theDay = (System.currentTimeMillis() - commonInfoEntity.getCreateTime().getTime()) / KuiBuConstants.ONE_DAY +1;
+        readingInfoEntity.getHistory().put(theDay.intValue(), this.pagesCurrent);
+    }
+
+    public String getTaskId() {
         return taskId;
     }
 
-    public void setTaskId(UUID taskId) {
+    public void setTaskId(String taskId) {
         this.taskId = taskId;
     }
 

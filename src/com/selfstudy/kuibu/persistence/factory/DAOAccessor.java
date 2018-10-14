@@ -17,6 +17,9 @@ public interface DAOAccessor {
 	@Query("SELECT * FROM kuibu.taskCommonInfo where taskId in ?")
 	Result<TaskCommonInfoEntity> getTaskList(List<UUID> taskIds);
 
+	@Query("SELECT * FROM kuibu.taskCommonInfo where taskId = ?")
+	Result<TaskCommonInfoEntity> getTaskCommonInfo(UUID taskId);
+
 	@Query("SELECT * FROM kuibu.taskReadingInfo where taskId = ?")
 	Result<TaskReadingInfoEntity> getReadingTaskDetail(UUID taskId);
 }

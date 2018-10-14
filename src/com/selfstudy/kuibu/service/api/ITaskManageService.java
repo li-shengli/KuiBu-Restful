@@ -1,5 +1,6 @@
 package com.selfstudy.kuibu.service.api;
 
+import com.selfstudy.kuibu.constants.TaskType;
 import com.selfstudy.kuibu.persistence.TaskCommonInfoEntity;
 import com.selfstudy.kuibu.persistence.TaskReadingInfoEntity;
 
@@ -11,5 +12,11 @@ public interface ITaskManageService {
 
     List<TaskCommonInfoEntity> getTaskList(String username);
 
+    TaskCommonInfoEntity getTaskCommonInfo(UUID taskId);
+
     TaskReadingInfoEntity getReadingTaskDetails(UUID taskId);
+
+    void updateTask(TaskCommonInfoEntity commonInfoEntity, TaskReadingInfoEntity readingInfoEntity);
+
+    void deleteTask(UUID taskId, TaskType taskType);
 }

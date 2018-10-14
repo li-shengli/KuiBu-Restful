@@ -28,7 +28,7 @@ public class TaskRestService {
             logger.debug("Create New Task! TaskInfo: "+ taskInfo.toString());
         }
         Date createTime = new Date();
-        taskInfo.setTaskId(UUID.randomUUID());
+        taskInfo.setTaskId(UUID.randomUUID().toString());
         taskInfo.setCreateTime(createTime);
 
         TaskCommonInfoEntity commonInfoEntity = taskInfo.toTaskCommonInfoEntity();
@@ -74,12 +74,35 @@ public class TaskRestService {
         return tasks;
     }
 
-    @Path("/task/update")
+    @Path("/task/updateReadingTask")
     @POST
     @Produces("application/json")
-    public void updateTask(TaskInfo taskInfo) {
+    public void updateReadingTask(TaskInfo taskInfo) {
         if (logger.isDebugEnabled()) {
             logger.debug("Update a task, taskId = "+ taskInfo.getTaskId());
         }
+        TaskCommonInfoEntity commonInfoEntity = taskService.getTaskCommonInfo(UUID.fromString(taskInfo.getTaskId()));
+        TaskReadingInfoEntity readingInfoEntity = taskService.getReadingTaskDetails(UUID.fromString(taskInfo.getTaskId()));
+
+        if (commonInfoEntity == null || readingInfoEntity == null) {
+            throw new IllegalStateException("Specific Task Not Found, taskId = " + taskInfo.getTaskId());
+        }
+
+        taskInfo.updateTaskCommonInfoEntity(commonInfoEntity);
+        taskInfo.updateTaskReadingInfoEntity(commonInfoEntity, readingInfoEntity);
+
+        taskService.updateTask(commonInfoEntity, readingInfoEntity);
+    }
+
+    @Path("/task/delete/{taskType}/{taskId}")
+    @GET
+    @Produces("application/json")
+    public void deleteTask(@PathParam("taskType") int type, @PathParam("taskId") String taskId) {
+        if (logger.isDebugEnabled()) {
+            logger.debug("Delete a task, taskId = "+ taskId + "; type = "+type);
+        }
+        TaskType taskType = TaskType.values()[type];
+
+        taskService.deleteTask(UUID.fromString(taskId), taskType);
     }
 }
