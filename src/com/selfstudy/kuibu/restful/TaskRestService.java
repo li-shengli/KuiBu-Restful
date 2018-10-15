@@ -34,7 +34,7 @@ public class TaskRestService {
         TaskCommonInfoEntity commonInfoEntity = taskInfo.toTaskCommonInfoEntity();
         commonInfoEntity.setTaskStatus(TaskStatus.Submitted);
 
-        if (TaskType.Reading.ordinal() == taskInfo.getTaskType()) {
+        if (TaskType.Reading.name() == taskInfo.getTaskType()) {
             if(logger.isDebugEnabled()) {
                 logger.debug("Create New Reading Task!");
             }
@@ -94,15 +94,15 @@ public class TaskRestService {
         taskService.updateTask(commonInfoEntity, readingInfoEntity);
     }
 
-    @Path("/task/delete/{taskType}/{taskId}")
+    @Path("/task/delete/{username}/{taskType}/{taskId}")
     @GET
     @Produces("application/json")
-    public void deleteTask(@PathParam("taskType") int type, @PathParam("taskId") String taskId) {
+    public void deleteTask(@PathParam("username") String username, @PathParam("taskType") int type, @PathParam("taskId") String taskId) {
         if (logger.isDebugEnabled()) {
             logger.debug("Delete a task, taskId = "+ taskId + "; type = "+type);
         }
         TaskType taskType = TaskType.values()[type];
 
-        taskService.deleteTask(UUID.fromString(taskId), taskType);
+        taskService.deleteTask(username, UUID.fromString(taskId), taskType);
     }
 }

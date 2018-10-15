@@ -32,8 +32,8 @@ public class AuthenticationService extends AbstractService implements IAuthentic
         UserInfoEntity userEntity = user.toEntity();
         userEntity.setPassword(MD5Util.md5Encode(user.getPassword()));
         userEntity.setId(UUID.randomUUID());
-        Mapper<UserInfoEntity> activityMapper = manager.mapper(UserInfoEntity.class);
-        activityMapper.save(userEntity);
+        Mapper<UserInfoEntity> userInfoEntityMapper = manager.mapper(UserInfoEntity.class);
+        userInfoEntityMapper.save(userEntity);
 
         return true;
     }

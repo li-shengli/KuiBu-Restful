@@ -15,9 +15,11 @@ public class TaskInfo {
 
     private String username;
 
+    private String userId;
+
     private String taskName;
 
-    private int taskType;
+    private String taskType;
 
     private int taskStatus;
 
@@ -49,7 +51,7 @@ public class TaskInfo {
         if(commonInfoEntity != null) {
             this.setTaskId(commonInfoEntity.getTaskId().toString());
             this.setTaskName(commonInfoEntity.getTaskName());
-            this.setTaskType(commonInfoEntity.getTaskStatus().ordinal());
+            this.setTaskType(commonInfoEntity.getTaskType().name());
             this.setTaskStatus(commonInfoEntity.getTaskStatus().ordinal());
         }
         if (readingInfoEntity != null) {
@@ -65,13 +67,22 @@ public class TaskInfo {
         TaskCommonInfoEntity commonInfoEntity = new TaskCommonInfoEntity();
         commonInfoEntity.setTaskId(UUID.fromString(this.taskId));
         commonInfoEntity.setTaskName(this.taskName);
-        commonInfoEntity.setTaskType(TaskType.values()[taskType]);
+        commonInfoEntity.setTaskType(TaskType.valueOf(this.taskType));
         commonInfoEntity.setCreateTime(this.createTime);
         return commonInfoEntity;
     }
 
     public void updateTaskCommonInfoEntity (TaskCommonInfoEntity commonInfoEntity) {
         commonInfoEntity.setTaskName(this.taskName);
+        commonInfoEntity.setTaskStatus(TaskStatus.values()[this.taskStatus]);
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public TaskReadingInfoEntity toTaskReadingInfoEntity () {
@@ -93,7 +104,7 @@ public class TaskInfo {
         readingInfoEntity.setPagesIntotal(this.pagesIntotal);
         readingInfoEntity.setExpectedDays(this.expectedDays);
 
-        Long theDay = (System.currentTimeMillis() - commonInfoEntity.getCreateTime().getTime()) / KuiBuConstants.ONE_DAY +1;
+        Long theDay = (System.currentTimeMillis() - commonInfoEntity.getCreateTime().getTime()) / KuiBuConstants.ONE_DAY;
         readingInfoEntity.getHistory().put(theDay.intValue(), this.pagesCurrent);
     }
 
@@ -145,11 +156,11 @@ public class TaskInfo {
         return pagesIntotal;
     }
 
-    public int getTaskType() {
+    public String getTaskType() {
         return taskType;
     }
 
-    public void setTaskType(int taskType) {
+    public void setTaskType(String taskType) {
         this.taskType = taskType;
     }
 

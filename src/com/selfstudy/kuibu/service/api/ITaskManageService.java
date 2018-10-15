@@ -18,5 +18,5 @@ public interface ITaskManageService {
 
     void updateTask(TaskCommonInfoEntity commonInfoEntity, TaskReadingInfoEntity readingInfoEntity);
 
-    void deleteTask(UUID taskId, TaskType taskType);
+    void deleteTask(String username, UUID taskId, TaskType taskType);
 }

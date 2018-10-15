@@ -74,7 +74,7 @@ public class TaskManageService extends AbstractService implements ITaskManageSer
     }
 
     @Override
-    public void deleteTask(UUID taskId, TaskType taskType) {
+    public void deleteTask(String username, UUID taskId, TaskType taskType) {
         if(logger.isDebugEnabled()) {
             logger.debug("Delete a existing reading task, taskId = " + taskId);
         }
@@ -84,6 +84,11 @@ public class TaskManageService extends AbstractService implements ITaskManageSer
         }
         Mapper<TaskCommonInfoEntity> commonInfoEntityMapper = manager.mapper(TaskCommonInfoEntity.class);
         commonInfoEntityMapper.delete(taskId);
+
+        UserInfoEntity userInfoEntity = accessor.getUserInfo(username).one();
+        userInfoEntity.getTasklist().remove(taskId);
+        Mapper<UserInfoEntity> userInfoEntityMapper = manager.mapper(UserInfoEntity.class);
+        userInfoEntityMapper.save(userInfoEntity);
     }
 
 
