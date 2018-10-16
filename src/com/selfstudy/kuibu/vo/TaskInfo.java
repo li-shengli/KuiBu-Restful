@@ -104,7 +104,7 @@ public class TaskInfo {
         readingInfoEntity.setPagesIntotal(this.pagesIntotal);
         readingInfoEntity.setExpectedDays(this.expectedDays);
 
-        Long theDay = (System.currentTimeMillis() - commonInfoEntity.getCreateTime().getTime()) / KuiBuConstants.ONE_DAY;
+        Long theDay = (System.currentTimeMillis() - commonInfoEntity.getCreateTime().getTime()) / KuiBuConstants.ONE_DAY+1;
         readingInfoEntity.getHistory().put(theDay.intValue(), this.pagesCurrent);
     }
 
@@ -230,7 +230,7 @@ public class TaskInfo {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("USER:[");
+        StringBuilder sb = new StringBuilder("Task:[");
         sb.append("taskId=").append(this.taskId).append(",");
         sb.append("loginName=").append(this.username).append(",");
         sb.append("TaskName=").append(this.taskName).append(",");

@@ -34,7 +34,7 @@ public class TaskRestService {
         TaskCommonInfoEntity commonInfoEntity = taskInfo.toTaskCommonInfoEntity();
         commonInfoEntity.setTaskStatus(TaskStatus.Submitted);
 
-        if (TaskType.Reading.name() == taskInfo.getTaskType()) {
+        if (TaskType.Reading.name().equals(taskInfo.getTaskType())) {
             if(logger.isDebugEnabled()) {
                 logger.debug("Create New Reading Task!");
             }
