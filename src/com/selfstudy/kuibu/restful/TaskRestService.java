@@ -46,16 +46,16 @@ public class TaskRestService {
     @Path("/task/all/{username}")
     @GET
     @Produces("application/json")
-    public Map<Integer, List<TaskInfo>> getTaskList(@PathParam("username") String username) {
+    public Map<String, List<TaskInfo>> getTaskList(@PathParam("username") String username) {
         List<TaskCommonInfoEntity> commonInfoEntities = taskService.getTaskList(username);
 
-        Map<Integer, List<TaskInfo>> tasks = new HashMap<>();
+        Map<String, List<TaskInfo>> tasks = new HashMap<>();
         List<TaskInfo> submittedTasks = new ArrayList<>();
-        tasks.put(TaskStatus.Submitted.ordinal(), submittedTasks);
+        tasks.put(TaskStatus.Submitted.name(), submittedTasks);
         List<TaskInfo> ongoingTasks = new ArrayList<>();
-        tasks.put(TaskStatus.Executing.ordinal(), ongoingTasks);
+        tasks.put(TaskStatus.Executing.name(), ongoingTasks);
         List<TaskInfo> doneTasks = new ArrayList<>();
-        tasks.put(TaskStatus.Finished.ordinal(), doneTasks);
+        tasks.put(TaskStatus.Finished.name(), doneTasks);
 
         for (TaskCommonInfoEntity commonInfoEntity : commonInfoEntities) {
             TaskReadingInfoEntity readingInfoEntity = taskService.getReadingTaskDetails(commonInfoEntity.getTaskId());

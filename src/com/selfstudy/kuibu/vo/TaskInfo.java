@@ -21,7 +21,7 @@ public class TaskInfo {
 
     private String taskType;
 
-    private int taskStatus;
+    private String taskStatus;
 
     private int taskFrom;
 
@@ -52,7 +52,7 @@ public class TaskInfo {
             this.setTaskId(commonInfoEntity.getTaskId().toString());
             this.setTaskName(commonInfoEntity.getTaskName());
             this.setTaskType(commonInfoEntity.getTaskType().name());
-            this.setTaskStatus(commonInfoEntity.getTaskStatus().ordinal());
+            this.setTaskStatus(commonInfoEntity.getTaskStatus().name());
         }
         if (readingInfoEntity != null) {
             this.setTaskId(readingInfoEntity.getTaskId().toString());
@@ -74,7 +74,7 @@ public class TaskInfo {
 
     public void updateTaskCommonInfoEntity (TaskCommonInfoEntity commonInfoEntity) {
         commonInfoEntity.setTaskName(this.taskName);
-        commonInfoEntity.setTaskStatus(TaskStatus.values()[this.taskStatus]);
+        commonInfoEntity.setTaskStatus(TaskStatus.valueOf(this.taskStatus));
     }
 
     public String getUserId() {
@@ -164,11 +164,11 @@ public class TaskInfo {
         this.taskType = taskType;
     }
 
-    public int getTaskStatus() {
+    public String getTaskStatus() {
         return taskStatus;
     }
 
-    public void setTaskStatus(int taskStatus) {
+    public void setTaskStatus(String taskStatus) {
         this.taskStatus = taskStatus;
     }
 
